@@ -8,24 +8,20 @@ Parameters:
     Description: ABucketName
     Default: cz-a-bucket
     Type: String
-  # CodeBucket:
-  #   Description: Where your lambda code in
-  #   Type: String
-  # LambdaFileName:
-  #   Description:  your lambda file name
-  #   Type: String
+  CodeBucket:
+    Description: Where your lambda code in
+    Type: String
+  LambdaFileName:
+    Description:  your lambda file name
+    Type: String
   
 Resources:
   CZSampleLambda:
     Type: AWS::Lambda::Function
     Properties:
       Code: 
-        # S3Bucket: !Ref CodeBucket
-        # S3Key: !Ref LambdaFileName
-        ZipFile: |
-          exports.handler = async () => {
-            console.log("hello world");
-          };
+        S3Bucket: !Ref CodeBucket # just the bucket name such as: 
+        S3Key: !Ref LambdaFileName
       FunctionName: !Ref SampleLambdaName 
       Description: say HelloWorld
       Handler: index.handler ## todo
@@ -42,7 +38,7 @@ Resources:
         LambdaConfigurations:
           - Event: s3:ObjectCreated:*
             Function: !GetAtt CZSampleLambda.Arn
-            
+
   S3InvokeRole:
     Type: AWS::Lambda::Permission
     Properties:
