@@ -1,0 +1,19 @@
+{
+  "name": "chenze-week2-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internal-aws-training/chenze-week2-lambda.git"
+  },
+  "author": "zac.li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/internal-aws-training/chenze-week2-lambda/issues"
+  },
+  "homepage": "https://github.com/internal-aws-training/chenze-week2-lambda#readme"
+}
