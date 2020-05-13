@@ -1,7 +1,7 @@
-Description: CZ AWS training lambda 
+Description: CZ AWS training lambda basic 
 Parameters:
-  SampleLambdaName:
-    Description: SampleLambdaName
+  BasicLambdaName:
+    Description: BasicLambdaName
     Default: cz-hello-world-lambda
     Type: String
   ABucketName:
@@ -16,13 +16,13 @@ Parameters:
     Type: String
   
 Resources:
-  CZSampleLambda:
+  CZBasicLambda:
     Type: AWS::Lambda::Function
     Properties:
       Code: 
         S3Bucket: !Ref CodeBucket # just the bucket name such as: 
         S3Key: !Ref LambdaFileName
-      FunctionName: !Ref SampleLambdaName 
+      FunctionName: !Ref BasicLambdaName 
       Description: say HelloWorld
       Handler: index.handler ## todo
       Runtime: nodejs12.x
@@ -31,17 +31,17 @@ Resources:
   CZABucket:
     Type: AWS::S3::Bucket
     DependsOn:
-      - CZSampleLambda
+      - CZBasicLambda
     Properties:
       BucketName: !Ref ABucketName
       NotificationConfiguration:
         LambdaConfigurations:
           - Event: s3:ObjectCreated:*
-            Function: !GetAtt CZSampleLambda.Arn
+            Function: !GetAtt CZBasicLambda.Arn
 
   S3InvokeRole:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !GetAtt CZSampleLambda.Arn
+      FunctionName: !GetAtt CZBasicLambda.Arn
       Principal: s3.amazonaws.com      
