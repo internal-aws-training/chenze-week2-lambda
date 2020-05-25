@@ -11,6 +11,7 @@ Parameters:
   CodeBucket:
     Description: Where your lambda code in
     Type: String
+    Default: cz-build-source
   LambdaFileName:
     Description:  your lambda file name
     Type: String

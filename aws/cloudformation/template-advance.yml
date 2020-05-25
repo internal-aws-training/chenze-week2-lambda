@@ -6,6 +6,7 @@ Parameters:
     Type: String
   CodeBucket:
     Description: Where your lambda code in
+    Default: cz-code-source
     Type: String
   LambdaAFileName:
     Description:  your lambda file name
@@ -25,7 +26,7 @@ Resources:
       Description: LambdaA
       Handler: czLambdaA.handler ## todo
       Runtime: nodejs12.x
-      Role: arn:aws:iam::494526681395:role/for-aws-training    
+      Role: arn:aws:iam::494526681395:role/for-aws-training
 
   CZAdvanceLambdaB:
     Type: AWS::Lambda::Function
@@ -37,4 +38,13 @@ Resources:
       Description: LambdaB
       Handler: czLambdaB.handler ## todo
       Runtime: nodejs12.x
-      Role: arn:aws:iam::494526681395:role/for-aws-training    
+      Role: arn:aws:iam::494526681395:role/for-aws-training
+  
+  LambdaBInvokeRole:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt CZAdvanceLambdaB.Arn
+      Principal: lambda.amazonaws.com
+      SourceArn: !GetAtt CZAdvanceLambdaA.Arn
+      SourceAccount: !Ref AWS::AccountId

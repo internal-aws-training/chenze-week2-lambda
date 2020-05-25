@@ -1,13 +1,17 @@
 const AWS = require('aws-sdk');
 
-const lambda = new AWS.Lambda();
+const lambda = new AWS.Lambda({
+  region: 'ap-southeast-1' //change to your region
+});
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async () => {
   var params = {
     FunctionName: "cz-lambdaB", 
    };
+   console.log("before invoke B");
    lambda.invoke(params, function(err, data) {
-     if (err) console.log(err, err.stack); // an error occurred
-     else     console.log(data);           // successful response
+     if (err) console.log(err, err.stack); 
+     else     console.log(data);
    });
+   console.log("after invoke B");
 }
