@@ -9,9 +9,7 @@ exports.handler = async () => {
     FunctionName: "cz-lambdaB", 
    };
    console.log("before invoke B");
-   lambda.invoke(params, function(err, data) {
-     if (err) console.log(err, err.stack); 
-     else     console.log(data);
-   });
+   const result = await lambda.invoke(params).promise();
+   console.log("invoke result:", result);
    console.log("after invoke B");
 }
